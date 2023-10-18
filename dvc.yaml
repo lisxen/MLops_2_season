@@ -1,0 +1,36 @@
+stages:
+	data_preparation:
+		cmd: python3 scripts/data_preparation.py
+		deps:
+			- data/raw/X_train.csv
+			- data/raw/X_test.csv
+			- data/raw/Y_train.csv
+			- data/raw/Y_test.csv
+			- scripts/data_preparation.py
+		outs:
+			- data/prepared/X_train_prepared.csv
+			- data/prepared/X_test_prepared.csv
+			- data/prepared/Y_train_prepared.csv
+			- data/prepared/Y_test_prepared.csv
+	model_create&fit:
+		cmd: python3 scripts/model_create&fit.py
+		deps:
+			- data/prepared/X_train_prepared.csv
+			- data/prepared/Y_train_prepared.csv
+			- scripts/model_create&fit.py
+		params:
+			- train.batch_size
+			- train.epochs
+			- train.validation_split
+			- train.verbose
+		outs:
+			- model
+	model_quality_assessment:
+		cmd: python3 scripts/model_quality_assessment.py
+		deps:
+			- data/prepared/X_test_prepared.csv
+			- data/prepared/Y_test_prepared.csv
+			- scripts/model_quality_assessment.py
+		metrics:
+			- results.json:
+				  cache: false
