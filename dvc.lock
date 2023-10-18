@@ -57,15 +57,15 @@ stages:
       size: 1230
     params:
       params.yaml:
-        batch_size: 200
-        epochs: 10
-        validation_split: 0.2
+        batch_size: 300
+        epochs: 15
+        validation_split: 0.1
         verbose: 2
     outs:
     - path: mnist_simple_model
       hash: md5
-      md5: 7e9c3a7acd4bb9a9e3b7e79ce509e995.dir
-      size: 5160756
+      md5: 0ca1d35878b7c7ffdbd29d2f6e8a1225.dir
+      size: 5160755
       nfiles: 5
   model_quality_assessment:
     cmd: python3 scripts/model_quality_assessment.py
@@ -80,8 +80,8 @@ stages:
       size: 400020
     - path: mnist_simple_model
       hash: md5
-      md5: 7e9c3a7acd4bb9a9e3b7e79ce509e995.dir
-      size: 5160756
+      md5: 0ca1d35878b7c7ffdbd29d2f6e8a1225.dir
+      size: 5160755
       nfiles: 5
     - path: scripts/model_quality_assessment.py
       hash: md5
@@ -90,5 +90,5 @@ stages:
     outs:
     - path: results.json
       hash: md5
-      md5: 12f07786d8157bf3e9a49f710efebfdb
-      size: 68
+      md5: c96602dea724fb0b51485411dea7d520
+      size: 70
