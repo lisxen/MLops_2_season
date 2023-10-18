@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 from tensorflow import keras
 
@@ -13,5 +14,5 @@ scores = model.evaluate(df_X_test, df_Y_test, verbose=1)
 
 # сохранение результатов в json
 results = {'test_loss':scores[0], 'test_accuracy':scores[1]}
-with open(quality_assessment_results', 'w') as file:
+with open('results.json', 'w') as file:
 	json.dump(results, file)

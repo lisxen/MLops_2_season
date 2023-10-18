@@ -1,0 +1,94 @@
+schema: '2.0'
+stages:
+  data_preparation:
+    cmd: python3 scripts/data_preparation.py
+    deps:
+    - path: data/raw/X_test.csv
+      hash: md5
+      md5: 47ec5bcf1aaa6111cf7d0c5352544280
+      size: 18282470
+    - path: data/raw/X_train.csv
+      hash: md5
+      md5: 19de6d546b202efd88a5ea777126fd73
+      size: 109519021
+    - path: data/raw/Y_test.csv
+      hash: md5
+      md5: 52170914c380ea14e53049c46699ad56
+      size: 30003
+    - path: data/raw/Y_train.csv
+      hash: md5
+      md5: 75055cb4d42a641cede6720841772149
+      size: 180003
+    - path: scripts/data_preparation.py
+      hash: md5
+      md5: 632dee2cc01d27cfa0ec6c42ef9e8c27
+      size: 1390
+    outs:
+    - path: data/prepared/X_test_prepared.csv
+      hash: md5
+      md5: 167aa3eafbd6abdb9683a608231263fc
+      size: 41021288
+    - path: data/prepared/X_train_prepared.csv
+      hash: md5
+      md5: f19f0144e90f47117755bb3533add74e
+      size: 245794566
+    - path: data/prepared/Y_test_prepared.csv
+      hash: md5
+      md5: 3394b61c0c581a0e6bd01abe0331d4b8
+      size: 400020
+    - path: data/prepared/Y_train_prepared.csv
+      hash: md5
+      md5: c4b9bf5f9576ab20efed46c01f70d96d
+      size: 2400020
+  model_create_fit:
+    cmd: python3 scripts/model_create_fit.py
+    deps:
+    - path: data/prepared/X_train_prepared.csv
+      hash: md5
+      md5: f19f0144e90f47117755bb3533add74e
+      size: 245794566
+    - path: data/prepared/Y_train_prepared.csv
+      hash: md5
+      md5: c4b9bf5f9576ab20efed46c01f70d96d
+      size: 2400020
+    - path: scripts/model_create_fit.py
+      hash: md5
+      md5: d15124b1177a75ba6d502ebd19e3a83d
+      size: 1230
+    params:
+      params.yaml:
+        batch_size: 200
+        epochs: 10
+        validation_split: 0.2
+        verbose: 2
+    outs:
+    - path: mnist_simple_model
+      hash: md5
+      md5: 7e9c3a7acd4bb9a9e3b7e79ce509e995.dir
+      size: 5160756
+      nfiles: 5
+  model_quality_assessment:
+    cmd: python3 scripts/model_quality_assessment.py
+    deps:
+    - path: data/prepared/X_test_prepared.csv
+      hash: md5
+      md5: 167aa3eafbd6abdb9683a608231263fc
+      size: 41021288
+    - path: data/prepared/Y_test_prepared.csv
+      hash: md5
+      md5: 3394b61c0c581a0e6bd01abe0331d4b8
+      size: 400020
+    - path: mnist_simple_model
+      hash: md5
+      md5: 7e9c3a7acd4bb9a9e3b7e79ce509e995.dir
+      size: 5160756
+      nfiles: 5
+    - path: scripts/model_quality_assessment.py
+      hash: md5
+      md5: dfb3b727207f49c85328db1103193857
+      size: 666
+    outs:
+    - path: results.json
+      hash: md5
+      md5: 12f07786d8157bf3e9a49f710efebfdb
+      size: 68

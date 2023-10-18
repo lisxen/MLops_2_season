@@ -19,15 +19,16 @@ stages:
          - data/prepared/Y_train_prepared.csv
          - scripts/model_create_fit.py
       params:
-         - train.batch_size
-         - train.epochs
-         - train.validation_split
-         - train.verbose
+         - batch_size
+         - epochs
+         - validation_split
+         - verbose
       outs:
-         - model
+         - mnist_simple_model
    model_quality_assessment:
       cmd: python3 scripts/model_quality_assessment.py
       deps:
+         - mnist_simple_model
          - data/prepared/X_test_prepared.csv
          - data/prepared/Y_test_prepared.csv
          - scripts/model_quality_assessment.py

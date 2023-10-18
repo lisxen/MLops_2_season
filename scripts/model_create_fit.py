@@ -4,7 +4,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 # гиперпараметры модели
-hypers = yaml.safe_load(open('scripts/hypers.yaml'))['train']
+hypers = yaml.safe_load(open('params.yaml'))
 
 # преобразование файлов .csv в датафреймы
 df_X_train = pd.read_csv('data/prepared/X_train_prepared.csv')
