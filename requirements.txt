@@ -1,4 +1,2 @@
 tensorflow
 pandas
-dvc[ssh]
-yaml
